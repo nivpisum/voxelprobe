@@ -5,8 +5,10 @@ license="MIT"
 [[mods]]
 modId="debugbridge"
 version="${version}"
-displayName="VoxelProbe"
-description="Local Minecraft inspection, server-thread world editing and Groovy scripting."
+displayName="VoxelProbe · 体素探针"
+description='''Local MCP/CLI tools for Minecraft inspection, server-thread world editing, tick observations, building files and trusted Groovy debugging.
+
+体素探针：连接本机 MCP/CLI，检查单人世界的方块、NBT、库存和实体，观察逐 tick 变化，预览与编辑建筑，并运行可信 Groovy 调试。默认只读；编辑和脚本权限由玩家在游戏中开启。适用于 Minecraft 1.20.1 Forge 的本地集成服。'''
 authors="nivpisum; Weikeng Chen (DebugBridge); pihoue (Forge port)"
 logoFile="voxelprobe.png"
 environment="CLIENT"

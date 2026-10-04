@@ -1,4 +1,4 @@
-# VoxelProbe · 方块探针
+# VoxelProbe · 体素探针
 
 ![VoxelProbe logo](asset/icon.png)
 
@@ -190,7 +190,7 @@ The equivalent wrapper command is `sh gradlew build`. Install **`build/libs/voxe
 
 ## 中文使用说明
 
-方块探针连接本机 MCP/CLI，读取单人世界集成服的方块、方块实体 NBT、实体与 tick 变化，也能预览/编辑建筑、运行可信 Groovy，并截取真实游戏画面。本版实测目标为 **Windows、MC 1.20.1、Forge 47.4.23、Java 17**；WorldEdit 可选。
+体素探针连接本机 MCP/CLI，读取单人世界集成服的方块、方块实体 NBT、实体与 tick 变化，也能预览/编辑建筑、运行可信 Groovy，并截取真实游戏画面。本版实测目标为 **Windows、MC 1.20.1、Forge 47.4.23、Java 17**；WorldEdit 可选。
 
 把完整 JAR 放入目标实例 `mods/`，解压工具包，用 Python 3.11+ 在包目录运行 `python tool/install.py --game-dir '<实例目录>' --client codex --install-skills`。首次游戏提示选择“开始查看”，进入本地世界，再调用 `minecraft_read(status)` 核对实例和世界。`/voxelprobe status` 查状态，`/voxelprobe pair` 查配对方式；连接文件 `config/debugbridge-connection.json` 含私有令牌，不要分享。
 
