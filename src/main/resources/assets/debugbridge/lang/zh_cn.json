@@ -1,0 +1,18 @@
+{
+  "voxelprobe.welcome.title": "方块探针 · VoxelProbe",
+  "voxelprobe.welcome.description": "连接本机工具，查看你的 Minecraft 世界。首次启用默认为只读模式。",
+  "voxelprobe.welcome.permissions": "之后可手动输入 /voxelprobe permissions edit 开启编辑，或 /voxelprobe permissions script 开启可信脚本。输入 /voxelprobe 查看状态。",
+  "voxelprobe.welcome.start": "开始查看",
+  "voxelprobe.welcome.disabled": "保持禁用",
+  "voxelprobe.command.status": "[方块探针] %s | %s | 本地连接：%s",
+  "voxelprobe.command.pair": "[方块探针] 让配套工具读取此游戏实例的 config/debugbridge-connection.json，以在本机配对。",
+  "voxelprobe.command.help": "[方块探针] /voxelprobe status | pair | permissions read|edit|script。read 只读；edit 可编辑世界并执行命令；script 额外允许可信脚本。",
+  "voxelprobe.command.disabled": "方块探针已禁用。请先在欢迎界面选择“开始查看”，再修改权限。",
+  "voxelprobe.command.script_trust": "[方块探针] 脚本模式拥有完整 JVM 权限，包括读取和写入电脑上的文件。请只连接你信任的工具。",
+  "voxelprobe.state.enabled": "已开启",
+  "voxelprobe.state.disabled": "已禁用",
+  "voxelprobe.state.not_listening": "未监听",
+  "voxelprobe.mode.read": "只读",
+  "voxelprobe.mode.edit": "编辑",
+  "voxelprobe.mode.script": "脚本"
+}

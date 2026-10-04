@@ -1,0 +1,40 @@
+VoxelProbe 1.0.0
+
+VoxelProbe source, documentation, companion tools and artwork are licensed
+under the MIT License in LICENSE. This includes the independently implemented
+building codecs; no Litemapy code or runtime dependency is included.
+
+Source attribution:
+- DebugBridge, copyright (c) 2026 Weikeng Chen, MIT.
+  https://github.com/use-ai-for-mc/debugbridge
+- 1.20.1 port baseline from pihoue/debugbridge-dev-1.21.1-1.20.1,
+  commit b959163fe200f4cbe62f02635b002f237afb21a0, MIT.
+  https://github.com/pihoue/debugbridge-dev-1.21.1-1.20.1
+- VoxelProbe modifications and artwork, copyright (c) 2026 nivpisum, MIT.
+
+Libraries bundled in the full JAR retain their own notices:
+- Java-WebSocket 1.6.0, copyright (c) 2010-2020 Nathan Rajlich, MIT.
+  Full text: META-INF/voxelprobe/Java-WebSocket-LICENSE.txt
+  https://github.com/TooTallNate/Java-WebSocket
+- Apache Groovy 5.0.6, Apache License 2.0.
+  Its original META-INF/LICENSE, META-INF/NOTICE and META-INF/licenses/
+  are retained, including the ANTLR and ASM notices.
+  https://groovy-lang.org/
+
+The companion's Python libraries are installed separately from the pinned
+requirements.lock. They are not copied into the companion ZIP. Their package
+licenses and notices are retained by pip in the package-local virtual environment.
+The direct requirements are mcp (MIT), websockets (BSD-3-Clause) and nbtlib (MIT).
+
+The source distribution includes the Gradle wrapper, licensed under Apache
+License 2.0. Its script headers and gradle-wrapper.jar META-INF/LICENSE are
+retained. This build tool is not part of the VoxelProbe game JAR or tools ZIP.
+
+The bundled Forge member table is a transformed join of Mojang and MCPConfig
+member names. The original source hashes, modification description and mapping
+terms are retained in debugbridge/mapping/notice.txt. Those mapping terms apply
+to that table; the table is not a complete, unmodified upstream mapping.
+
+Minecraft and Forge are not bundled. Minecraft is a trademark of Mojang Studios.
+This project is not an official Minecraft product and is not approved by or
+associated with Mojang or Microsoft.

@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="debugbridge"
+version="${version}"
+displayName="VoxelProbe"
+description="Local Minecraft inspection, server-thread world editing and Groovy scripting."
+authors="nivpisum; Weikeng Chen (DebugBridge); pihoue (Forge port)"
+logoFile="voxelprobe.png"
+environment="CLIENT"
+
+[[dependencies.debugbridge]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.20.2)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.debugbridge]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="CLIENT"
+

@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+mcp>=1.12,<2
+websockets>=15,<17
+nbtlib==2.0.4

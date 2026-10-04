@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '6.0.54'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.debugbridge'
+version = '1.0.0'
+base { archivesName = 'voxelprobe-1.20.1-forge' }
+java { toolchain.languageVersion = JavaLanguageVersion.of(17) }
+sourceSets.main.java.exclude '**/mixin/**'
+minecraft { mappings channel: 'official', version: '1.20.1' }
+repositories { mavenCentral() }
+
+configurations { bridgeLibs }
+configurations.implementation.extendsFrom(configurations.bridgeLibs)
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.23'
+    bridgeLibs('org.java-websocket:Java-WebSocket:1.6.0') { exclude group: 'org.slf4j' }
+    bridgeLibs 'org.apache.groovy:groovy:5.0.6'
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 17 }
+tasks.named('processResources') {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/mods.toml') { expand version: project.version }
+    from('LICENSE') { into 'META-INF/voxelprobe' }
+    from('NOTICE') { into 'META-INF/voxelprobe' }
+}
+tasks.named('shadowJar') {
+    configurations = [project.configurations.bridgeLibs]
+    archiveClassifier = ''
+    mergeServiceFiles()
+    exclude 'META-INF/versions/**', 'module-info.class', 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA'
+}
+tasks.named('jar') { archiveClassifier = 'slim' }
+reobf { shadowJar {} }
+tasks.named('build') { dependsOn 'reobfShadowJar' }
+tasks.register('coreBoundaryTest', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.debugbridge.core.CoreBoundaryTest'
+}
+tasks.named('check') { dependsOn 'coreBoundaryTest' }

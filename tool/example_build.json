@@ -1,0 +1,17 @@
+{
+  "name": "oak_shelter",
+  "mc_version": "1.20.1",
+  "fills": [
+    {"from": [-3, 0, -2], "to": [3, 0, 2], "block": "minecraft:stone_bricks"},
+    {"from": [-3, 4, -2], "to": [3, 4, 2], "block": "minecraft:oak_slab[type=bottom,waterlogged=false]"},
+    {"from": [-3, 1, -2], "to": [-3, 3, -2], "block": "minecraft:oak_log[axis=y]"},
+    {"from": [3, 1, -2], "to": [3, 3, -2], "block": "minecraft:oak_log[axis=y]"},
+    {"from": [-3, 1, 2], "to": [-3, 3, 2], "block": "minecraft:oak_log[axis=y]"},
+    {"from": [3, 1, 2], "to": [3, 3, 2], "block": "minecraft:oak_log[axis=y]"}
+  ],
+  "blocks": [
+    {"x": 0, "y": 0, "z": -3, "block": "minecraft:stone_brick_stairs[facing=south,half=bottom,shape=straight,waterlogged=false]"},
+    {"x": 1, "y": 1, "z": 0, "block": "minecraft:chest[facing=north,type=single,waterlogged=false]", "nbt": "{id:\"minecraft:chest\",Items:[{Slot:0b,id:\"minecraft:diamond\",Count:17b}]}"},
+    {"x": -1, "y": 1, "z": 0, "block": "minecraft:oak_sign[rotation=8,waterlogged=false]", "nbt": "{id:\"minecraft:sign\",is_waxed:0b,front_text:{messages:['{\"text\":\"Oak shelter\"}','{\"text\":\"17 diamonds\"}','{\"text\":\"\"}','{\"text\":\"\"}'],color:\"black\",has_glowing_text:0b},back_text:{messages:['{\"text\":\"\"}','{\"text\":\"\"}','{\"text\":\"\"}','{\"text\":\"\"}'],color:\"black\",has_glowing_text:0b}}"}
+  ]
+}

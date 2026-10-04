@@ -1,0 +1,18 @@
+{
+  "voxelprobe.welcome.title": "VoxelProbe",
+  "voxelprobe.welcome.description": "Connect local tools to inspect your Minecraft world. Inspection starts in read-only mode.",
+  "voxelprobe.welcome.permissions": "You can enable editing later with /voxelprobe permissions edit, or trusted scripts with /voxelprobe permissions script. Use /voxelprobe for status.",
+  "voxelprobe.welcome.start": "Start inspection",
+  "voxelprobe.welcome.disabled": "Keep disabled",
+  "voxelprobe.command.status": "[VoxelProbe] %s | %s | Local bridge: %s",
+  "voxelprobe.command.pair": "[VoxelProbe] Have your companion tool read this instance's config/debugbridge-connection.json to pair locally.",
+  "voxelprobe.command.help": "[VoxelProbe] /voxelprobe status | pair | permissions read|edit|script. Read inspects; edit allows world changes and commands; script also enables trusted scripts.",
+  "voxelprobe.command.disabled": "VoxelProbe is disabled. Choose Start inspection on the welcome screen before changing permissions.",
+  "voxelprobe.command.script_trust": "[VoxelProbe] Script mode grants full JVM access, including reading and writing files on your computer. Only connect tools you trust.",
+  "voxelprobe.state.enabled": "Enabled",
+  "voxelprobe.state.disabled": "Disabled",
+  "voxelprobe.state.not_listening": "Not listening",
+  "voxelprobe.mode.read": "Read-only",
+  "voxelprobe.mode.edit": "Editing",
+  "voxelprobe.mode.script": "Scripts"
+}
