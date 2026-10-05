@@ -44,7 +44,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 
-@Mod("debugbridge")
+@Mod("voxel_probe")
 public class DebugBridgeMod extends AbstractDebugBridgeMod {
     private static final String MC_VERSION = "1.20.1";
     private static DebugBridgeMod INSTANCE;

@@ -3,7 +3,7 @@ loaderVersion="[47,)"
 license="MIT"
 
 [[mods]]
-modId="debugbridge"
+modId="voxel_probe"
 version="${version}"
 displayName="VoxelProbe · 体素探针"
 description='''Local MCP/CLI tools for Minecraft inspection, server-thread world editing, tick observations, building files and trusted Groovy debugging.
@@ -13,14 +13,14 @@ authors="nivpisum; Weikeng Chen (DebugBridge); pihoue (Forge port)"
 logoFile="voxelprobe.png"
 environment="CLIENT"
 
-[[dependencies.debugbridge]]
+[[dependencies.voxel_probe]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.20.1,1.20.2)"
     ordering="NONE"
     side="CLIENT"
 
-[[dependencies.debugbridge]]
+[[dependencies.voxel_probe]]
     modId="forge"
     mandatory=true
     versionRange="[47,)"

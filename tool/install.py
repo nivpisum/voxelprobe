@@ -106,8 +106,9 @@ def main(argv: list[str] | None = None) -> int:
             codex_home = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex").expanduser().resolve()
             for message in install_skills(tool_dir, codex_home):
                 print(message)
-        connection = game_dir / "config" / "debugbridge-connection.json"
-        if connection.is_file():
+        connection = game_dir / "config" / "voxel_probe_connection.json"
+        legacy_connection = game_dir / "config" / "debugbridge-connection.json"
+        if connection.is_file() or legacy_connection.is_file():
             print("Connection descriptor exists; launch this instance and call minecraft_read(status) to verify it.")
         else:
             print("Not connected yet: start this Minecraft instance with VoxelProbe installed, then enable the mod.")

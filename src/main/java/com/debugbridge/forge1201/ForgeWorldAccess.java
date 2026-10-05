@@ -339,7 +339,7 @@ public final class ForgeWorldAccess {
                 return BridgeResponse.success(requestId, result, null);
             }
             if (backupEnabled) {
-                ResourceLocation name = resource("voxelprobe:recovery_" + UUID.randomUUID().toString().replace("-", ""));
+                ResourceLocation name = resource("voxel_probe:recovery_" + UUID.randomUUID().toString().replace("-", ""));
                 backup = saveStructure(server, level, name, editBounds, false, false);
                 backup.add("from", positionJson(editBounds.min));
             }
@@ -509,8 +509,9 @@ public final class ForgeWorldAccess {
     private JsonObject structureSave(MinecraftServer server, ServerLevel level, JsonObject p) {
         Bounds b = bounds(level, p, MAX_BLOCKS);
         ResourceLocation name = structureName(p);
-        if (name.getNamespace().equals("voxelprobe") && name.getPath().startsWith("recovery_")) {
-            throw invalid("voxelprobe:recovery_* names are reserved for automatic recovery backups");
+        if ((name.getNamespace().equals("voxel_probe") || name.getNamespace().equals("voxelprobe"))
+                && name.getPath().startsWith("recovery_")) {
+            throw invalid("VoxelProbe recovery_* names are reserved for automatic recovery backups");
         }
         return saveStructure(server, level, name, b, bool(p, "include_entities", false), bool(p, "overwrite", false));
     }
@@ -534,7 +535,17 @@ public final class ForgeWorldAccess {
 
     private JsonObject structureLoad(MinecraftServer server, ServerLevel level, JsonObject p) {
         ResourceLocation name = structureName(p);
-        StructureTemplate template = server.getStructureManager().get(name).orElseThrow(() -> invalid("Unknown structure: " + name));
+        StructureTemplateManager manager = server.getStructureManager();
+        var found = manager.get(name);
+        // Unqualified structures saved before the ID correction remain usable;
+        // explicit namespaces continue to resolve exactly as requested.
+        if (found.isEmpty() && !string(p, "name").contains(":")) {
+            ResourceLocation legacy = resource("debugbridge:" + name.getPath());
+            found = manager.get(legacy);
+            if (found.isPresent()) name = legacy;
+        }
+        if (found.isEmpty()) throw invalid("Unknown structure: " + name);
+        StructureTemplate template = found.get();
         BlockPos pos = position(p);
         validatePosition(level, pos);
         long volume = (long) template.getSize().getX() * template.getSize().getY() * template.getSize().getZ();
@@ -939,7 +950,7 @@ public final class ForgeWorldAccess {
 
     private static ResourceLocation structureName(JsonObject p) {
         String value = string(p, "name");
-        ResourceLocation name = resource(value.contains(":") ? value : "debugbridge:" + value);
+        ResourceLocation name = resource(value.contains(":") ? value : "voxel_probe:" + value);
         for (String segment : name.getPath().split("/", -1)) {
             if (segment.isEmpty() || segment.equals(".") || segment.equals("..")) throw invalid("Structure name must not contain empty or traversal path segments");
         }

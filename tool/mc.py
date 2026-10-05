@@ -49,7 +49,10 @@ def connection(port: int) -> dict:
         # Retains the existing explicitly local, private installation's CLI compatibility.
         return {"port": port, "headers": {}, "game_dir": None, "instance_id": None}
     directory = Path(game).expanduser().resolve()
-    path = directory / "config/debugbridge-connection.json"
+    path = directory / "config/voxel_probe_connection.json"
+    if not path.exists():
+        # Support an instance that has not restarted after the ID migration.
+        path = directory / "config/debugbridge-connection.json"
     if not path.is_file():
         raise RuntimeError("Start this instance with VoxelProbe and enable inspection; its private connection file is not present yet.")
     try:

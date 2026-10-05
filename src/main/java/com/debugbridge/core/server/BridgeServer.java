@@ -876,7 +876,7 @@ public class BridgeServer extends WebSocketServer {
         if (!sessionControlEnabled) {
             return BridgeResponse.error(
                     req.id,
-                    "Session control is disabled. Set session_control_enabled=true in debugbridge.json and restart.");
+                    "Session control is disabled. Set session_control_enabled=true in voxel_probe.json and restart.");
         }
         if (sessionControlProvider == null) {
             return BridgeResponse.error(req.id, "No session control provider configured for this Minecraft version.");

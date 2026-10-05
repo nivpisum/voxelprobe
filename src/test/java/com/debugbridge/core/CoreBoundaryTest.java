@@ -44,12 +44,46 @@ import java.util.function.Consumer;
 /** Standalone pure-JVM checks. No Minecraft classes, sockets or retained world are used. */
 public final class CoreBoundaryTest {
     public static void main(String[] args) throws Exception {
+        legacyConfigurationMigratesWithoutLosingAuthority();
         scriptsCarryTheirDeadlineToTheGameThread();
         scriptOutputIsBoundedAtWriteTime();
         serializerBoundsContainersBeforeExpandingThem();
         clientRequestsCancelBeforeStartingAndReportUnknownAfterStarting();
         clientChangesRequireAnActiveWorldTargetAfterTheMenu();
-        System.out.println("CoreBoundaryTest: 5 groups passed");
+        System.out.println("CoreBoundaryTest: 6 groups passed");
+    }
+
+    private static void legacyConfigurationMigratesWithoutLosingAuthority() throws Exception {
+        Path directory = Path.of("build/tmp/config_migration_" + java.util.UUID.randomUUID());
+        java.nio.file.Files.createDirectories(directory);
+        Path legacy = directory.resolve("debugbridge.json");
+        Path canonical = directory.resolve("voxel_probe.json");
+        String token = "a".repeat(43);
+        String original = "{\"port\":9881,\"developer_mode_accepted\":true,\"world_write_enabled\":true,"
+                + "\"script_enabled\":true,\"run_command_enabled\":true,\"session_control_enabled\":true,"
+                + "\"token\":\"" + token + "\",\"custom_setting\":{\"keep\":7}}";
+        java.nio.file.Files.writeString(legacy, original);
+        try {
+            BridgeConfig migrated = BridgeConfig.load(directory);
+            check(migrated.token.equals(token) && migrated.port == 9881, "Migration must retain pairing and port");
+            check(migrated.developerModeAccepted && migrated.worldWriteEnabled && migrated.scriptEnabled
+                    && migrated.runCommandEnabled && migrated.sessionControlEnabled, "Migration must retain granted permissions");
+            check(java.nio.file.Files.readString(legacy).equals(original), "Legacy settings must remain intact");
+            check(com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(canonical))
+                    .getAsJsonObject().getAsJsonObject("custom_setting").get("keep").getAsInt() == 7,
+                    "Migration must retain unknown settings");
+            migrated.worldWriteEnabled = false;
+            migrated.save();
+            check(!BridgeConfig.load(directory).worldWriteEnabled, "Canonical settings must take precedence");
+            java.nio.file.Files.writeString(canonical, "{invalid}");
+            boolean rejected = false;
+            try { BridgeConfig.load(directory); } catch (IllegalStateException expected) { rejected = true; }
+            check(rejected, "Malformed canonical settings must fail closed rather than restore old permissions");
+        } finally {
+            java.nio.file.Files.deleteIfExists(canonical);
+            java.nio.file.Files.deleteIfExists(legacy);
+            java.nio.file.Files.delete(directory);
+        }
     }
 
     private static void clientChangesRequireAnActiveWorldTargetAfterTheMenu() throws Exception {

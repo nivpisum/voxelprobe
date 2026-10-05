@@ -162,7 +162,7 @@ public abstract class AbstractDebugBridgeMod {
         FrameCapturer frameCapturer = createFrameCapturer();
         Path gd = gameDir();
         if (frameCapturer != null && gd != null) {
-            Path recordingsDir = gd.resolve("debugbridge-recordings");
+            Path recordingsDir = gd.resolve("voxel_probe_recordings");
             server.setRecordingProvider(new RecordingProvider(frameCapturer, recordingsDir));
         } else {
             LOG.info("[VoxelProbe] Recording provider not registered (no frame capturer or game dir)");

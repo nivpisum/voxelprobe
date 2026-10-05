@@ -32,7 +32,7 @@ retained. This build tool is not part of the VoxelProbe game JAR or tools ZIP.
 
 The bundled Forge member table is a transformed join of Mojang and MCPConfig
 member names. The original source hashes, modification description and mapping
-terms are retained in debugbridge/mapping/notice.txt. Those mapping terms apply
+terms are retained in voxel_probe/mapping/notice.txt. Those mapping terms apply
 to that table; the table is not a complete, unmodified upstream mapping.
 
 Minecraft and Forge are not bundled. Minecraft is a trademark of Mojang Studios.

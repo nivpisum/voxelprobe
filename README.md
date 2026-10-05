@@ -10,7 +10,7 @@ This release targets **local single-player worlds with an integrated server**. I
 
 ## Install and pair
 
-1. Install the full `voxelprobe-1.20.1-forge-1.0.0.jar` in the intended Forge instance's `mods/` directory. Do not use a `-slim.jar`. The internal mod ID remains `debugbridge` and the Java namespace remains `com.debugbridge` for compatibility; **do not install another DebugBridge JAR alongside it**.
+1. Install the full `voxelprobe-1.20.1-forge-1.0.0.jar` in the intended Forge instance's `mods/` directory. Do not use a `-slim.jar`. The Forge mod ID is `voxel_probe`; the Java namespace retains its upstream `com.debugbridge` provenance; **do not install another DebugBridge JAR alongside it**.
 2. Extract the companion tools package, retaining this layout:
 
    ```text
@@ -41,7 +41,9 @@ This release targets **local single-player worlds with an integrated server**. I
 4. Start that Minecraft instance. At the first welcome screen choose **Start inspection**; the bridge stays inactive until enabled and starts in **read-only mode**. Open a local world. `/voxelprobe status` shows the mode and local address; `/voxelprobe pair` explains local pairing.
 5. Call `minecraft_read(operation="status")` and confirm `bridge.gameDir`, the version, and the intended `world` before editing.
 
-Pairing uses the instance's private `config/debugbridge-connection.json`. The tools read its selected port, instance identity and access token through `MINECRAFT_GAME_DIR`, or the CLI's `--game-dir` option. **Do not share this file, print its token, or paste the token into MCP configuration or chat.** The bridge listens on `127.0.0.1` and rejects browser Origin connections; keep it local. The normal starting port is 9876, but pairing uses the actual port from the connection file.
+Pairing uses the instance's private `config/voxel_probe_connection.json`. The tools read its selected port, instance identity and access token through `MINECRAFT_GAME_DIR`, or the CLI's `--game-dir` option. **Do not share this file, print its token, or paste the token into MCP configuration or chat.** The bridge listens on `127.0.0.1` and rejects browser Origin connections; keep it local. The normal starting port is 9876, but pairing uses the actual port from the connection file.
+
+Settings now use `config/voxel_probe.json`. If it is absent, the mod migrates the previous `debugbridge.json`, retaining its permissions, token and custom settings and leaving the old file intact. New structures use `voxel_probe:`; old explicitly namespaced structures remain readable, and unqualified loads can find the previous `debugbridge:` namespace.
 
 ## Permissions and target checks
 
@@ -192,6 +194,6 @@ The equivalent wrapper command is `sh gradlew build`. Install **`build/libs/voxe
 
 体素探针连接本机 MCP/CLI，读取单人世界集成服的方块、方块实体 NBT、实体与 tick 变化，也能预览/编辑建筑、运行可信 Groovy，并截取真实游戏画面。本版实测目标为 **Windows、MC 1.20.1、Forge 47.4.23、Java 17**；WorldEdit 可选。
 
-把完整 JAR 放入目标实例 `mods/`，解压工具包，用 Python 3.11+ 在包目录运行 `python tool/install.py --game-dir '<实例目录>' --client codex --install-skills`。首次游戏提示选择“开始查看”，进入本地世界，再调用 `minecraft_read(status)` 核对实例和世界。`/voxelprobe status` 查状态，`/voxelprobe pair` 查配对方式；连接文件 `config/debugbridge-connection.json` 含私有令牌，不要分享。
+把完整 JAR 放入目标实例 `mods/`，解压工具包，用 Python 3.11+ 在包目录运行 `python tool/install.py --game-dir '<实例目录>' --client codex --install-skills`。首次游戏提示选择“开始查看”，进入本地世界，再调用 `minecraft_read(status)` 核对实例和世界。`/voxelprobe status` 查状态，`/voxelprobe pair` 查配对方式；连接文件 `config/voxel_probe_connection.json` 含私有令牌，不要分享。
 
-默认只读。玩家输入 `/voxelprobe permissions edit` 后可编辑/执行命令；`script` 模式另授予脚本完整 JVM 和文件权限；`read` 恢复只读。编辑先用同一 JSON 做 `read preview`，再 `write batch`，最后读回并截图。默认备份整个包围盒的方块/NBT（最多 65,536 格），不是原子回滚，不能恢复实体或 tick 的全部后果。换世界后刷新状态；超时先读回，勿盲目重试。大建筑拆批或使用 WorldEdit。内部 ID 仍为 `debugbridge`，不要与另一份 DebugBridge 同装。
+默认只读。玩家输入 `/voxelprobe permissions edit` 后可编辑/执行命令；`script` 模式另授予脚本完整 JVM 和文件权限；`read` 恢复只读。编辑先用同一 JSON 做 `read preview`，再 `write batch`，最后读回并截图。默认备份整个包围盒的方块/NBT（最多 65,536 格），不是原子回滚，不能恢复实体或 tick 的全部后果。换世界后刷新状态；超时先读回，勿盲目重试。大建筑拆批或使用 WorldEdit。Forge 模组 ID 为 `voxel_probe`，不要与另一份 DebugBridge 同装。

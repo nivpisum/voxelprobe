@@ -20,7 +20,7 @@ import java.util.zip.GZIPInputStream;
  */
 public class ForgeSearchResolver implements MappingResolver {
     private static final String MINECRAFT = "net.minecraft.client.Minecraft";
-    private static final String RESOURCE = "/debugbridge/mapping/forge_1_20_1.tsv.gz";
+    private static final String RESOURCE = "/voxel_probe/mapping/forge_1_20_1.tsv.gz";
     private final String version;
     private final ParsedMappings mappings;
     private final boolean srgRuntime;

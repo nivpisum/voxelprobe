@@ -2,7 +2,7 @@
 
 No downloads or third-party packages. The optional --runtime-jar verifies every
 emitted member against the real SRG class files without loading or running them.
-See src/main/resources/debugbridge/mapping/notice.txt for source attribution.
+See src/main/resources/voxel_probe/mapping/notice.txt for source attribution.
 """
 
 from __future__ import annotations
@@ -186,7 +186,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mojang", type=Path, required=True)
     parser.add_argument("--srg", type=Path, required=True, help="MCPConfig TSRG2 file (obf first, SRG second)")
-    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parents[1] / "src/main/resources/debugbridge/mapping/forge_1_20_1.tsv.gz")
+    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parents[1] / "src/main/resources/voxel_probe/mapping/forge_1_20_1.tsv.gz")
     parser.add_argument("--runtime-jar", type=Path, help="Optional actual Minecraft client SRG jar, read-only")
     parser.add_argument("--check", action="store_true", help="Verify the existing output without writing it")
     args = parser.parse_args()

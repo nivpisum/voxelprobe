@@ -37,10 +37,13 @@ public class BridgeConfig {
 
     public static BridgeConfig load(Path configDir) {
         BridgeConfig c = new BridgeConfig();
-        c.configFile = configDir.resolve("debugbridge.json");
+        c.configFile = configDir.resolve("voxel_probe.json");
         try {
-            if (Files.exists(c.configFile)) {
-                JsonObject j = JSON.fromJson(Files.readString(c.configFile), JsonObject.class);
+            // Read the legacy file only when the canonical file is absent. Keep
+            // the old file intact so existing settings and tokens remain recoverable.
+            Path source = Files.exists(c.configFile) ? c.configFile : configDir.resolve("debugbridge.json");
+            if (Files.exists(source)) {
+                JsonObject j = JSON.fromJson(Files.readString(source), JsonObject.class);
                 if (j == null) throw new IllegalArgumentException();
                 c.original = j.deepCopy();
                 if (j.has("port")) c.port = j.get("port").getAsInt();
@@ -62,7 +65,7 @@ public class BridgeConfig {
             return c;
         } catch (IOException | RuntimeException e) {
             // Do not echo malformed JSON: it may contain the private token.
-            throw new IllegalStateException("Invalid or unreadable debugbridge.json; the bridge remains disabled.");
+            throw new IllegalStateException("Invalid or unreadable VoxelProbe configuration; the bridge remains disabled.");
         }
     }
 
@@ -98,7 +101,7 @@ public class BridgeConfig {
         j.addProperty("token", token);
         j.addProperty("instance_id", instanceId);
         j.addProperty("game_dir", gameDir.toAbsolutePath().normalize().toString());
-        Path file = gameDir.resolve("config/debugbridge-connection.json");
+        Path file = gameDir.resolve("config/voxel_probe_connection.json");
         try {
             Files.createDirectories(file.getParent());
             Files.writeString(file, JSON.toJson(j));
